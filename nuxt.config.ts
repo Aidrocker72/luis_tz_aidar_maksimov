@@ -25,6 +25,8 @@ export default defineNuxtConfig({
     }
   },
   app: {
+    baseURL: '/luis_tz_aidar_maksimov/',
+    buildAssetsDir: '/_nuxt/',
     head: {
       title: 'Sticker Cats | Nuxt 4',
       meta: [
