@@ -1,0 +1,22 @@
+@use '@/assets/styles/_variables.scss' as *;
+
+.p-sticker {
+  &__hero {
+    padding: 48px 0 12px;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 20px;
+
+    > .card {
+      grid-column: span 6;
+    }
+
+    @media (max-width: 940px) {
+      > .card { grid-column: span 12; }
+    }
+  }
+}
+

@@ -1,0 +1,106 @@
+@use '@/assets/styles/_variables.scss' as *;
+
+.sticker {
+  position: fixed;
+  right: 18px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 50;
+  display: grid;
+  grid-template-columns: auto 0px;
+  grid-auto-flow: column;
+  align-items: stretch;
+  gap: 0;
+  transition: grid-template-columns $transition, filter $transition, transform $transition;
+
+  &--open {
+    grid-template-columns: auto 340px;
+    filter: drop-shadow($shadow);
+    transform: translateY(-50%) translateZ(0);
+  }
+
+  &__tab {
+    border: 0;
+    background: linear-gradient(180deg, $brand 0%, $brand-dark 100%);
+    color: white;
+    padding: 12px 14px;
+    border-radius: $radius-md 0 0 $radius-md;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    box-shadow: $shadow;
+    transform: translateZ(0);
+    transition: background $transition, transform $transition, box-shadow $transition;
+    &:hover { transform: scale(1.04); }
+
+    &-label { font-weight: 700; letter-spacing: 0.02em; }
+    &-icon { opacity: 0.9; }
+  }
+
+  &__panel {
+    width: 340px;
+    height: 420px;
+    overflow: hidden;
+    background: rgba(17, 18, 37, 0.85);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-left: 0;
+    border-radius: 0 $radius-lg $radius-lg 0;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    transform-origin: left center;
+    transition: clip-path $transition, opacity $transition, transform $transition;
+    clip-path: inset(0 100% 0 0);
+    opacity: 0;
+
+    .sticker--open & {
+      clip-path: inset(0 0 0 0);
+      opacity: 1;
+      transform: perspective(800px) rotateY(0deg);
+    }
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 14px;
+    background: rgba(255,255,255,0.04);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    &-title { font-weight: 800; }
+    &-refresh {
+      border: 0; border-radius: $radius-sm;
+      background: $accent; color: #261b00;
+      font-weight: 700; padding: 6px 10px; cursor: pointer;
+      transition: transform $transition, filter $transition, background $transition;
+      &:hover { transform: translateY(-1px); }
+      &:disabled { opacity: 0.6; cursor: default; }
+    }
+  }
+
+  &__content {
+    overflow: auto;
+    padding: 12px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  &__cat {
+    border-radius: $radius-md;
+    overflow: hidden;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(255,255,255,0.08);
+    img { display: block; width: 100%; height: 160px; object-fit: cover; }
+  }
+
+  &__empty { color: $muted; text-align: center; padding: 24px 0; }
+}
+
+@media (max-width: 940px) {
+  .sticker { right: 10px; }
+  .sticker--open { grid-template-columns: auto 300px; }
+  .sticker__panel { width: 300px; height: 380px; }
+}
+
